@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quirino High School Canteen Reserve Portal</title>
+    <link rel="stylesheet" href="QHS.css">
+    <script type="module" src="QHS.js" defer></script>
+</head>
+<body>
+    <div id="app-loading-overlay" class="app-loading-overlay hidden" aria-live="polite" aria-busy="true">
+        <div class="app-loading-spinner" aria-hidden="true"></div>
+        <p id="app-loading-text" class="app-loading-text">Loading...</p>
+    </div>
+
+    <div id="auth-view" class="view">
+        <div class="auth-shell">
+            <section class="auth-card" aria-label="Authentication">
+                <div class="auth-brand">
+                    <img
+                        src="pictures/LOGO.jpg"
+                        alt="Quirino High School Logo"
+                        class="site-logo auth-logo"
+                        loading="lazy"
+                    >
+                    <h1 class="auth-title">Quirino High School Canteen Reserve Portal</h1>
+                </div>
+
+                <div class="auth-tabs">
+                    <button type="button" class="auth-tab-btn active" data-auth-tab="login">Login</button>
+                    <button type="button" class="auth-tab-btn" data-auth-tab="register">Register</button>
+                </div>
+
+                <form id="login-form" class="auth-form active" novalidate>
+                    <h2>Login</h2>
+
+                    <div class="role-choice" role="group" aria-label="Login role">
+                        <label>
+                            <input type="radio" name="login-role" value="student" checked>
+                            Student
+                        </label>
+                        <label>
+                            <input type="radio" name="login-role" value="staff">
+                            Staff
+                        </label>
+                    </div>
+
+                    <label class="field-label" for="login-email">Email</label>
+                    <input id="login-email" name="email" type="email" placeholder="name@example.com" required>
+
+                    <label class="field-label" for="login-password">Password</label>
+                    <input id="login-password" name="password" type="password" placeholder="Enter password" required>
+
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+
+                <form id="register-form" class="auth-form" novalidate>
+                    <h2>Create Account</h2>
+
+                    <label class="field-label" for="reg-role">Role</label>
+                    <select id="reg-role" name="role" required>
+                        <option value="student">Student</option>
+                        <option value="staff">Staff</option>
+                    </select>
+
+                    <label class="field-label" for="reg-full-name">Full Name</label>
+                    <input id="reg-full-name" name="fullName" type="text" placeholder="Juan Dela Cruz" required>
+
+                    <div id="reg-id-group">
+                        <label class="field-label" for="reg-id-number">LRN</label>
+                        <input id="reg-id-number" name="idNumber" type="text" placeholder="123456789012" required>
+                    </div>
+
+                    <div id="reg-class-group">
+                        <label class="field-label" for="reg-class-dept">Grade and Section</label>
+                        <input id="reg-class-dept" name="classDepartment" type="text" placeholder="Grade 10 - Section Newton" required>
+                    </div>
+
+                    <label class="field-label" for="reg-email">Email</label>
+                    <input id="reg-email" name="email" type="email" placeholder="name@example.com" required>
+
+                    <label class="field-label" for="reg-password">Password</label>
+                    <input id="reg-password" name="password" type="password" placeholder="Minimum 6 characters" required>
+
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+
+                <p id="auth-message" class="inline-message" aria-live="polite"></p>
+            </section>
+        </div>
+    </div>
+
+    <div id="app-view" class="view hidden">
+        <header class="topbar">
+            <div class="topbar-copy">
+                <div class="topbar-brand">
+                    <img
+                        src="pictures/LOGO.jpg"
+                        alt="Quirino High School Logo"
+                        class="site-logo topbar-logo"
+                        loading="lazy"
+                    >
+                    <div class="topbar-brand-text">
+                        <h1>Quirino High School Canteen Reserve Portal</h1>
+                        <p id="welcome-text">Welcome</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="main-nav" aria-label="Primary navigation">
+                <button type="button" class="nav-btn active" data-section="dashboard" data-role="all">Menu</button>
+                <button type="button" class="nav-btn" data-section="orders" data-role="all">History</button>
+                <button type="button" class="nav-btn" data-section="manage-menu" data-role="staff">Manage Menu</button>
+                <button type="button" class="nav-btn" data-section="suspensions" data-role="staff">Student Suspension</button>
+                <button type="button" class="nav-btn" data-section="profile" data-role="all">Profile</button>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <p id="system-message" class="inline-message role-message" aria-live="polite"></p>
+            <section id="dashboard-section" class="app-section active">
+                <div class="dashboard-grid">
+                    <article class="panel menu-quick-panel">
+                        <h2 class="menu-quick-title">Menu & Quick Reserve</h2>
+                        <div class="menu-quick-divider"></div>
+                        <div class="menu-quick-tools">
+                            <input id="menu-search-input" class="menu-search-input" type="text" placeholder="Search menu items...">
+                            <div id="menu-category-tabs" class="menu-category-tabs">
+                                <button type="button" class="menu-filter-btn active" data-category="all">All</button>
+                                <button type="button" class="menu-filter-btn" data-category="drinks">Drinks</button>
+                                <button type="button" class="menu-filter-btn" data-category="food">Food</button>
+                                <button type="button" class="menu-filter-btn" data-category="snack">Snacks</button>
+                                <button type="button" class="menu-filter-btn" data-category="kakanin">Kakanin</button>
+                            </div>
+                        </div>
+                        <div id="meal-list" class="meal-sections"></div>
+                    </article>
+
+                    <div class="dashboard-side">
+                        <article class="panel current-orders-panel">
+                            <div class="current-order-header">
+                                <h3>Your Current Cart</h3>
+                                <span id="current-orders-count" class="order-count-badge">0</span>
+                            </div>
+                            <p id="current-orders-empty" class="muted-msg">Tap menu items to start your reserve.</p>
+                            <div id="current-orders-list" class="current-order-list"></div>
+                            <div class="current-order-total-row">
+                                <span>Total Due:</span>
+                                <span id="current-orders-total" class="current-orders-total-amount">PHP 0.00</span>
+                            </div>
+                            <div class="current-payment-panel">
+                                <label class="field-label" for="current-payment-method">Payment Method</label>
+                                <select id="current-payment-method" aria-label="Payment Method">
+                                    <option value="On-site">Pay On-site</option>
+                                    <option value="GCash">GCash</option>
+                                </select>
+                                <div id="current-gcash-qr-panel" class="current-gcash-qr hidden">
+                                    <p class="current-gcash-qr-note">Scan this QR code to pay via GCash.</p>
+                                    <img
+                                        id="current-gcash-qr-image"
+                                        class="current-gcash-qr-image"
+                                        src="pictures/gcash-qr.png"
+                                        alt="GCash QR Code"
+                                        loading="lazy"
+                                    >
+                                </div>
+                            </div>
+                            <div class="current-order-actions">
+                                <button type="button" id="current-checkout-btn" class="btn current-checkout-btn">Checkout</button>
+                                <button type="button" id="current-clear-btn" class="btn current-clear-btn">Clear Cart</button>
+                            </div>
+                        </article>
+
+                        <article class="panel hidden" id="staff-order-blocked">
+                            <h3>Reservation Restricted</h3>
+                            <p class="muted-msg">Staff accounts are not allowed to place reservations.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section id="profile-section" class="app-section hidden">
+                <div class="section-head">
+                    <h2 id="profile-section-title">Profile</h2>
+                    <p id="profile-section-subtitle">View your account details.</p>
+                </div>
+
+                <article class="panel">
+                    <div id="profile-display" class="profile-grid"></div>
+                    <div class="profile-settings">
+                        <h3 id="settings-title">Settings</h3>
+                        <label class="theme-toggle-row" for="theme-dark-toggle">
+                            <span id="settings-dark-mode-label">Dark Mode</span>
+                            <input id="theme-dark-toggle" type="checkbox" role="switch" aria-label="Toggle Dark Mode">
+                        </label>
+                        <label class="theme-toggle-row" for="settings-notifications-toggle">
+                            <span id="settings-notifications-label">Notifications</span>
+                            <input id="settings-notifications-toggle" type="checkbox" role="switch" aria-label="Toggle Notifications">
+                        </label>
+                        <label class="settings-row" for="settings-language-select">
+                            <span id="settings-language-label">Language</span>
+                            <select id="settings-language-select" aria-label="Language">
+                                <option value="en">English</option>
+                                <option value="fil">Filipino</option>
+                            </select>
+                        </label>
+                        <label class="settings-row" for="settings-font-size-select">
+                            <span id="settings-font-size-label">Font Size</span>
+                            <select id="settings-font-size-select" aria-label="Font Size">
+                                <option value="small">Small</option>
+                                <option value="medium">Medium</option>
+                                <option value="large">Large</option>
+                            </select>
+                        </label>
+                        <form id="settings-password-form" class="settings-password-form" novalidate>
+                            <h4 id="settings-password-title">Change Password</h4>
+
+                            <label class="field-label" id="settings-current-password-label" for="settings-current-password">Current Password</label>
+                            <input
+                                id="settings-current-password"
+                                name="currentPassword"
+                                type="password"
+                                placeholder="Enter current password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <label class="field-label" id="settings-new-password-label" for="settings-new-password">New Password</label>
+                            <input
+                                id="settings-new-password"
+                                name="newPassword"
+                                type="password"
+                                placeholder="Minimum 6 characters"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                            <label class="field-label" id="settings-confirm-password-label" for="settings-confirm-password">Confirm New Password</label>
+                            <input
+                                id="settings-confirm-password"
+                                name="confirmPassword"
+                                type="password"
+                                placeholder="Re-enter new password"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                            <button type="submit" class="btn btn-primary" id="settings-password-submit-btn">Update Password</button>
+                        </form>
+                        <form id="settings-delete-account-form" class="settings-danger-form" novalidate>
+                            <h4 id="settings-delete-account-title">Delete Account</h4>
+                            <p id="settings-delete-account-warning" class="settings-danger-note">This action is permanent and cannot be undone.</p>
+
+                            <label class="field-label" id="settings-delete-current-password-label" for="settings-delete-current-password">Current Password</label>
+                            <input
+                                id="settings-delete-current-password"
+                                name="currentPassword"
+                                type="password"
+                                placeholder="Enter current password to confirm"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button type="submit" class="btn btn-danger" id="settings-delete-account-btn">Delete Account</button>
+                        </form>
+                    </div>
+                    <div class="profile-actions">
+                        <button type="button" class="btn btn-maroon" id="logout-btn">Logout</button>
+                    </div>
+                    <p id="profile-message" class="inline-message" aria-live="polite"></p>
+                </article>
+            </section>
+
+            <section id="orders-section" class="app-section hidden">
+                <div class="section-head">
+                    <h2 id="orders-title">Reservation History</h2>
+                    <p id="orders-subtitle">Review meal name, quantity, date and status.</p>
+                </div>
+
+                <article class="panel">
+                    <div id="staff-orders-tools" class="staff-orders-tools hidden">
+                        <label id="staff-orders-search-label" class="field-label" for="staff-orders-search">Search Student/Reserve/Date</label>
+                        <input id="staff-orders-search" type="text" placeholder="e.g. Juan, Sisig, 2026-02-17">
+                        <label id="staff-orders-filter-label" class="field-label" for="staff-orders-filter">Filter List</label>
+                        <select id="staff-orders-filter">
+                            <option value="all">All</option>
+                            <option value="grade-section">Grade and Section</option>
+                            <option value="complete">Complete</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                        <button type="button" class="btn btn-secondary small-btn" id="staff-history-toggle-btn">Show History Orders</button>
+                    </div>
+
+                    <div class="orders-columns">
+                        <section class="orders-pane">
+                            <h3 id="staff-active-title" class="orders-subhead hidden">Pending Reservations</h3>
+                            <p id="orders-empty" class="muted-msg">No reservations yet</p>
+                            <div id="orders-list" class="stack-list"></div>
+                        </section>
+
+                        <section class="orders-pane">
+                            <h3 id="staff-completed-title" class="orders-subhead hidden">Completed Reservations</h3>
+                            <p id="orders-completed-empty" class="muted-msg hidden">No completed reservations yet</p>
+                            <div id="orders-completed-list" class="stack-list"></div>
+                        </section>
+                    </div>
+
+                    <section class="orders-history-wrap">
+                        <h3 id="staff-history-title" class="orders-subhead hidden">History Orders</h3>
+                        <p id="orders-history-empty" class="muted-msg hidden">No history orders yet</p>
+                        <div id="orders-history-list" class="stack-list hidden"></div>
+                    </section>
+                </article>
+            </section>
+
+            <section id="manage-menu-section" class="app-section hidden">
+                <div class="section-head">
+                    <h2>Manage Menu</h2>
+                    <p>Staff can add, edit, delete, and update item availability.</p>
+                </div>
+
+                <article class="panel">
+                    <form id="manage-menu-form" class="manage-menu-form" novalidate>
+                        <input type="hidden" id="menu-edit-id" name="editId">
+                        <input id="menu-item-name" name="name" type="hidden">
+                        <input id="menu-item-price" name="price" type="hidden">
+                        <input id="menu-item-image" name="imageUrl" type="hidden">
+                        <input id="menu-item-category" name="category" type="hidden">
+                        <input id="menu-item-nutrition" name="nutrition" type="hidden">
+                        <input id="menu-item-description" name="description" type="hidden">
+
+                        <div class="profile-actions">
+                            <button type="submit" class="btn btn-primary" id="menu-save-btn">Add Item</button>
+                            <button type="button" class="btn btn-secondary hidden" id="menu-cancel-edit-btn">Cancel Edit</button>
+                        </div>
+                    </form>
+                    <p id="manage-menu-message" class="inline-message" aria-live="polite"></p>
+                    <div id="manage-menu-list" class="stack-list"></div>
+                </article>
+            </section>
+
+            <section id="suspensions-section" class="app-section hidden">
+                <div class="section-head">
+                    <h2 id="suspensions-title">Student Suspension</h2>
+                    <p id="suspensions-subtitle">Suspend or unsuspend student accounts.</p>
+                </div>
+
+                <article class="panel">
+                    <p id="suspensions-message" class="inline-message" aria-live="polite"></p>
+                    <p id="suspensions-empty" class="muted-msg hidden">No student accounts found.</p>
+                    <div id="suspensions-list" class="stack-list"></div>
+                </article>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <section class="footer-info">
+                <h2>Information & Feedback</h2>
+
+                <div class="footer-info-grid">
+                    <article class="footer-faq">
+                        <h3>Frequently Asked Questions</h3>
+
+                        <div class="faq-item">
+                            <h4>How do I know when my reservation is ready?</h4>
+                            <p>Check the "Reserve" section. The status will change from "Pending" to "Completed".</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h4>Can I modify a reservation after checking out?</h4>
+                            <p>Once submitted, reservations cannot be edited. Please review your reservation before clicking submit.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h4>Where do I pay and collect my food?</h4>
+                            <p>Payment and collection are handled at the main canteen window. Please present your reservation details.</p>
+                        </div>
+                    </article>
+
+                    <aside class="footer-contact">
+                        <div class="contact-block">
+                            <h3>Contact Us</h3>
+                            <a href="mailto:qhs.canteen@support.com">qhs.canteen@support.com</a>
+                            <a href="#" target="_blank" rel="noopener noreferrer">QHS Canteen Reserve Portal</a>
+                        </div>
+
+                        <div class="contact-block">
+                            <h3>Suggestion Box</h3>
+                            <textarea id="suggestion-input" rows="4" placeholder="Share your feedback, menu suggestions, or comments here..."></textarea>
+                            <button type="button" id="suggestion-submit-btn" class="btn btn-maroon">Submit Suggestion</button>
+                            <p id="suggestion-message" class="inline-message" aria-live="polite"></p>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+            <div id="staff-footer-banner" class="staff-footer-banner hidden">
+                <p id="staff-footer-text">Staff Portal Footer: Manage reservations, menu updates, and records carefully.</p>
+            </div>
+
+            <div class="footer-bottom">
+                Established 2025 | Created for the students of Quirino High School
+            </div>
+        </footer>
+    </div>
+
+    <div id="item-info-modal" class="item-info-modal hidden" role="dialog" aria-modal="true" aria-labelledby="item-info-modal-title">
+        <div class="item-info-dialog">
+            <div class="item-info-header">
+                <h3 id="item-info-modal-title">Item Info</h3>
+                <button type="button" id="item-info-modal-close" class="item-info-close-btn" aria-label="Close">x</button>
+            </div>
+            <div id="item-info-modal-content" class="item-info-content"></div>
+            <p id="item-info-modal-message" class="inline-message"></p>
+            <div id="item-info-modal-actions" class="item-info-actions"></div>
+        </div>
+    </div>
+
+    <div id="menu-image-modal" class="menu-image-modal hidden" role="dialog" aria-modal="true" aria-labelledby="menu-image-title">
+        <div class="menu-image-dialog">
+            <div class="menu-image-header">
+                <h3 id="menu-image-title">Menu Image</h3>
+                <button type="button" id="menu-image-close" class="item-info-close-btn" aria-label="Close">x</button>
+            </div>
+            <div class="menu-image-stage">
+                <img id="menu-image-preview" class="menu-image-preview" src="" alt="Menu item image preview">
+            </div>
+            <div class="menu-image-controls">
+                <button type="button" id="menu-image-zoom-out" class="btn btn-secondary small-btn">-</button>
+                <span id="menu-image-zoom-label">100%</span>
+                <button type="button" id="menu-image-zoom-in" class="btn btn-secondary small-btn">+</button>
+                <button type="button" id="menu-image-zoom-reset" class="btn btn-secondary small-btn">Reset</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
