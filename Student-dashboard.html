@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | QHS Canteen Reserve Portal</title>
+    <link rel="stylesheet" href="QHS.css">
+    <script src="orders.js" defer></script>
+</head>
+<body data-page-role="student">
+    <div id="app-view" class="view">
+        <header class="topbar">
+            <div class="topbar-copy">
+                <div class="topbar-brand">
+                    <img
+                        src="pictures/LOGO.jpg"
+                        alt="Quirino High School Logo"
+                        class="site-logo topbar-logo"
+                        loading="lazy"
+                    >
+                    <div class="topbar-brand-text">
+                        <h1>Quirino High School Canteen Reserve Portal</h1>
+                        <p id="welcome-text">Welcome</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="main-nav" aria-label="Primary navigation">
+                <button type="button" class="nav-btn active" data-section="dashboard">Menu</button>
+                <button type="button" class="nav-btn" data-section="orders">History</button>
+                <button type="button" class="nav-btn" data-section="profile">Profile</button>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <p id="system-message" class="inline-message role-message" aria-live="polite"></p>
+
+            <section id="dashboard-section" class="app-section active">
+                <div class="dashboard-grid">
+                    <article class="panel menu-quick-panel">
+                        <h2 class="menu-quick-title">Menu & Quick Reserve</h2>
+                        <div class="menu-quick-divider"></div>
+                        <div class="menu-quick-tools">
+                            <input id="menu-search-input" class="menu-search-input" type="text" placeholder="Search menu items...">
+                            <div id="menu-category-tabs" class="menu-category-tabs"></div>
+                        </div>
+                        <div id="meal-list" class="meal-sections"></div>
+                    </article>
+
+                    <aside class="dashboard-side">
+                        <article class="panel current-orders-panel">
+                            <div class="current-order-header">
+                                <h3>Your Current Cart</h3>
+                                <span id="current-orders-count" class="order-count-badge">0</span>
+                            </div>
+                            <p id="current-orders-empty" class="muted-msg">Tap menu items to start your reserve.</p>
+                            <div id="current-orders-list" class="current-order-list"></div>
+                            <div class="current-order-total-row">
+                                <span>Total Due:</span>
+                                <span id="current-orders-total" class="current-orders-total-amount">P 0.00</span>
+                            </div>
+                            <div class="current-payment-panel">
+                                <label class="field-label" for="current-payment-method">Payment Method</label>
+                                <select id="current-payment-method" aria-label="Payment Method">
+                                    <option value="On-site">Pay On-site</option>
+                                    <option value="GCash">GCash</option>
+                                </select>
+                                <div id="current-gcash-qr-panel" class="current-gcash-qr hidden">
+                                    <p class="current-gcash-qr-note">Scan this QR code to pay via GCash.</p>
+                                    <img
+                                        id="current-gcash-qr-image"
+                                        class="current-gcash-qr-image"
+                                        src="pictures/gcash-qr.png"
+                                        alt="GCash QR Code"
+                                        loading="lazy"
+                                    >
+                                </div>
+                            </div>
+                            <div class="current-order-actions">
+                                <button type="button" id="current-checkout-btn" class="btn current-checkout-btn">Checkout</button>
+                                <button type="button" id="current-clear-btn" class="btn current-clear-btn">Clear Cart</button>
+                            </div>
+                            <p id="order-message" class="inline-message" aria-live="polite"></p>
+                        </article>
+                    </aside>
+                </div>
+            </section>
+
+            <section id="orders-section" class="app-section hidden">
+                <div class="section-head">
+                    <h2>Reservation History</h2>
+                    <p>Review your order statuses and completed reservations.</p>
+                </div>
+
+                <article class="panel">
+                    <div class="orders-columns">
+                        <section class="orders-pane">
+                            <h3 class="orders-subhead">Pending / Preparing</h3>
+                            <p id="orders-empty" class="muted-msg">No reservations yet</p>
+                            <div id="orders-list" class="stack-list"></div>
+                        </section>
+
+                        <section class="orders-pane">
+                            <h3 class="orders-subhead">Completed</h3>
+                            <p id="orders-completed-empty" class="muted-msg hidden">No completed reservations yet</p>
+                            <div id="orders-completed-list" class="stack-list"></div>
+                        </section>
+                    </div>
+                </article>
+            </section>
+
+            <section id="profile-section" class="app-section hidden">
+                <div class="section-head">
+                    <h2>Profile</h2>
+                    <p>View your account details.</p>
+                </div>
+
+                <article class="panel">
+                    <div id="profile-display" class="profile-grid"></div>
+                    <div class="profile-actions">
+                        <button type="button" class="btn btn-maroon" id="logout-btn">Logout</button>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard | QHS Canteen Reserve Portal</title>
+    <link rel="stylesheet" href="QHS.css">
+    <script src="orders.js" defer></script>
+</head>
+<body data-page-role="staff">
+    <div id="app-view" class="view">
+        <header class="topbar">
+            <div class="topbar-copy">
+                <div class="topbar-brand">
+                    <img
+                        src="pictures/LOGO.jpg"
+                        alt="Quirino High School Logo"
+                        class="site-logo topbar-logo"
+                        loading="lazy"
+                    >
+                    <div class="topbar-brand-text">
+                        <h1>Quirino High School Canteen Reserve Portal</h1>
+                        <p id="welcome-text">Welcome</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="main-nav" aria-label="Primary navigation">
+                <button type="button" class="nav-btn active" data-section="orders">Student Reservations</button>
+                <button type="button" class="nav-btn" data-section="profile">Profile</button>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <p id="system-message" class="inline-message role-message" aria-live="polite"></p>
+
+            <section id="orders-section" class="app-section active">
+                <div class="section-head">
+                    <h2 id="orders-title">Student Reservations</h2>
+                    <p id="orders-subtitle">View student orders and update reservation status.</p>
+                </div>
+
+                <article class="panel">
+                    <div id="staff-orders-tools" class="staff-orders-tools">
+                        <label class="field-label" for="staff-orders-search">Search Student/Order/Date</label>
+                        <input id="staff-orders-search" type="text" placeholder="e.g. Juan, Sisig, 2026-02-17">
+
+                        <label class="field-label" for="staff-orders-filter">Filter List</label>
+                        <select id="staff-orders-filter">
+                            <option value="all">All</option>
+                            <option value="pending">Pending</option>
+                            <option value="preparing">Preparing</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        <button type="button" class="btn btn-secondary small-btn" id="staff-enable-alerts-btn">Enable Browser Alerts</button>
+                    </div>
+
+                    <div class="orders-columns">
+                        <section class="orders-pane">
+                            <h3 class="orders-subhead">Pending / Preparing</h3>
+                            <p id="orders-empty" class="muted-msg">No student reservations yet</p>
+                            <div id="orders-list" class="stack-list"></div>
+                        </section>
+
+                        <section class="orders-pane">
+                            <h3 class="orders-subhead">Completed</h3>
+                            <p id="orders-completed-empty" class="muted-msg hidden">No completed reservations yet</p>
+                            <div id="orders-completed-list" class="stack-list"></div>
+                        </section>
+                    </div>
+                </article>
+            </section>
+
+            <section id="profile-section" class="app-section hidden">
+                <div class="section-head">
+                    <h2>Profile</h2>
+                    <p>View your account details.</p>
+                </div>
+
+                <article class="panel">
+                    <div id="profile-display" class="profile-grid"></div>
+                    <div class="profile-actions">
+                        <button type="button" class="btn btn-maroon" id="logout-btn">Logout</button>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
