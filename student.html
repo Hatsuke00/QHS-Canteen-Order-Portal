@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard - Campus Canteen Reservation</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="student-page">
+  <header class="shell student-header">
+    <div class="student-header-main">
+      <div class="student-title-wrap">
+        <img src="pictures/LOGO.jpg" alt="School Logo" class="student-logo">
+        <div>
+          <h1>Student Dashboard</h1>
+          <p id="student-user" class="student-welcome"></p>
+        </div>
+      </div>
+      <button id="student-logout-btn" class="student-logout-btn" type="button">Logout</button>
+    </div>
+  </header>
+
+  <section class="shell student-tabbar" aria-label="Student dashboard tabs">
+    <button id="student-tab-menu" class="student-tab-btn active" type="button" data-student-tab="menu">Menu</button>
+    <button id="student-tab-orders" class="student-tab-btn" type="button" data-student-tab="orders">My Orders</button>
+  </section>
+
+  <main id="student-menu-view" class="shell student-layout">
+    <section class="panel student-menu-panel">
+      <div class="student-panel-head">
+        <h2>Menu</h2>
+        <input id="menu-search" type="search" placeholder="Search menu items...">
+      </div>
+
+      <div class="student-filter-row" aria-label="Menu filters">
+        <select id="filter-category" class="student-filter" aria-label="Filter by category">
+          <option value="">All Categories</option>
+          <option value="Food">Food</option>
+          <option value="Drink">Drinks</option>
+          <option value="Snack">Snacks</option>
+          <option value="Kakanin">Kakanin</option>
+        </select>
+
+        <select id="filter-halal" class="student-filter" aria-label="Filter by halal">
+          <option value="">All Halal Types</option>
+          <option value="halal">Halal Only</option>
+          <option value="non-halal">Non-Halal Only</option>
+        </select>
+
+        <select id="filter-sort" class="student-filter" aria-label="Sort items">
+          <option value="name-asc">Sort: Name A-Z</option>
+          <option value="name-desc">Sort: Name Z-A</option>
+          <option value="price-asc">Sort: Price Low-High</option>
+          <option value="price-desc">Sort: Price High-Low</option>
+        </select>
+
+        <button id="clear-filters-btn" type="button" class="secondary-btn student-clear-btn">Clear</button>
+      </div>
+
+      <p id="menu-message" class="form-message" aria-live="polite"></p>
+      <div id="menu-grid"></div>
+    </section>
+
+    <aside class="panel student-cart-panel">
+      <h2>Your Cart</h2>
+      <p id="cart-message" class="form-message" aria-live="polite"></p>
+      <div id="cart-list" class="cart-list"></div>
+      <div class="cart-footer">
+        <p>Total</p>
+        <strong id="cart-total">PHP 0.00</strong>
+      </div>
+      <button id="checkout-btn" class="student-checkout-btn" type="button">Checkout</button>
+    </aside>
+  </main>
+
+  <section id="student-orders-view" class="shell panel student-history-panel hidden">
+    <div class="student-panel-head">
+      <h2>My Orders</h2>
+      <button id="refresh-orders-btn" class="secondary-btn" type="button">Refresh</button>
+    </div>
+
+    <div class="orders-split">
+      <section class="orders-split-block">
+        <h3 class="orders-subtitle">Active Orders</h3>
+        <div id="student-active-orders" class="orders-list"></div>
+      </section>
+
+      <section class="orders-split-block">
+        <h3 class="orders-subtitle">Completed History</h3>
+        <div id="student-history-orders" class="orders-list"></div>
+      </section>
+    </div>
+  </section>
+
+  <div id="image-modal" class="image-modal hidden" aria-hidden="true">
+    <div class="image-modal-backdrop" data-close-image-modal></div>
+    <div class="image-modal-content" role="dialog" aria-modal="true" aria-labelledby="image-modal-caption">
+      <button type="button" class="image-modal-close" data-close-image-modal aria-label="Close image">&times;</button>
+      <img id="image-modal-img" src="" alt="">
+      <p id="image-modal-caption" class="image-modal-caption"></p>
+    </div>
+  </div>
+
+  <div id="item-info-modal" class="item-info-modal hidden" aria-hidden="true">
+    <div class="item-info-backdrop" data-close-item-info></div>
+    <div class="item-info-content" role="dialog" aria-modal="true" aria-labelledby="item-info-title">
+      <button type="button" class="item-info-close" data-close-item-info aria-label="Close details">&times;</button>
+
+      <div class="item-info-header">
+        <img id="item-info-image" src="" alt="">
+        <div>
+          <h3 id="item-info-title"></h3>
+          <p id="item-info-price" class="item-info-price"></p>
+          <span id="item-info-halal" class="item-info-halal"></span>
+        </div>
+      </div>
+
+      <div class="item-info-grid">
+        <p><strong>Category:</strong> <span id="item-info-category"></span></p>
+        <p><strong>Description:</strong> <span id="item-info-description"></span></p>
+        <p><strong>Nutritional Values:</strong></p>
+        <p id="item-info-nutrition" class="item-info-nutrition"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/api.js" defer></script>
+  <script src="assets/student.js" defer></script>
+</body>
+</html>

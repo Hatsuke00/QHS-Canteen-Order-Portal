@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Dashboard - Campus Canteen Reservation</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="staff-page">
+  <header class="shell staff-header">
+    <div class="staff-header-main">
+      <div class="staff-title-wrap">
+        <img src="pictures/LOGO.jpg" alt="School Logo" class="staff-logo">
+        <div>
+          <h1>Staff Dashboard</h1>
+          <p id="staff-user" class="staff-welcome"></p>
+        </div>
+      </div>
+      <button id="staff-logout-btn" class="staff-logout-btn" type="button">Logout</button>
+    </div>
+  </header>
+
+  <main class="shell staff-layout">
+    <section class="panel staff-menu-panel">
+      <h2>Menu Management</h2>
+      <p class="muted-text">Staff can add new menu items. Changes are saved in the database.</p>
+
+      <div class="staff-menu-actions">
+        <button id="menu-add-toggle-btn" type="button">Add New Item</button>
+      </div>
+
+      <p id="menu-manage-message" class="form-message" aria-live="polite"></p>
+      <div id="menu-manage-list" class="manage-scroll"></div>
+    </section>
+
+    <section class="panel staff-orders-panel">
+      <h2>Student Orders</h2>
+      <p id="staff-poll-status" class="muted-text">Auto-checking for new orders every 5 seconds.</p>
+      <p id="staff-message" class="form-message" aria-live="polite"></p>
+
+      <div class="orders-split">
+        <section class="orders-split-block">
+          <h3 class="orders-subtitle">Active Orders</h3>
+          <div id="staff-active-orders" class="orders-list"></div>
+        </section>
+
+        <section class="orders-split-block">
+          <h3 class="orders-subtitle">Completed History</h3>
+          <div id="staff-history-orders" class="orders-list"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <div id="menu-add-alert-modal" class="staff-add-alert-modal hidden" aria-hidden="true">
+    <div class="staff-add-alert-backdrop" data-close-add-modal></div>
+    <div class="staff-add-alert-content" role="dialog" aria-modal="true" aria-labelledby="staff-add-title">
+      <button type="button" class="staff-add-alert-close" data-close-add-modal aria-label="Close add item form">&times;</button>
+      <h3 id="staff-add-title">Add New Item</h3>
+
+      <form id="menu-add-form" class="manage-form">
+        <label for="add-item-name">Item Name</label>
+        <input id="add-item-name" type="text" required>
+
+        <label for="add-item-category">Category</label>
+        <select id="add-item-category" required>
+          <option value="Food">Food</option>
+          <option value="Drink">Drink</option>
+          <option value="Snack">Snack</option>
+          <option value="Kakanin">Kakanin</option>
+        </select>
+
+        <label for="add-item-price">Price (PHP)</label>
+        <input id="add-item-price" type="number" min="1" step="0.01" required>
+
+        <label for="add-item-description">Description</label>
+        <textarea id="add-item-description" rows="3" required></textarea>
+
+        <label for="add-item-nutrition">Nutritional Values</label>
+        <textarea id="add-item-nutrition" rows="3" placeholder="e.g. Calories: 250 kcal, Protein: 8g" required></textarea>
+
+        <label for="add-item-image">Image Path</label>
+        <input id="add-item-image" type="text" placeholder="pictures/Food/Item.jpg" required>
+
+        <label class="checkbox-row" for="add-item-halal">
+          <input id="add-item-halal" type="checkbox" checked>
+          <span>Halal</span>
+        </label>
+
+        <div class="manage-form-actions">
+          <button id="add-item-submit-btn" type="submit">Save Item</button>
+          <button id="menu-add-cancel-btn" class="secondary-btn" type="button">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/api.js" defer></script>
+  <script src="assets/staff.js" defer></script>
+</body>
+</html>

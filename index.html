@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Canteen Reservation</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="auth-body">
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand-block">
+        <img src="pictures/LOGO.jpg" alt="School Logo" class="brand-logo">
+        <div>
+          <p class="brand-eyebrow">School Project</p>
+          <h1 class="brand-title">Campus Canteen Reservation</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell auth-layout">
+    <section class="welcome-card">
+      <h2>Reserve Smarter, Queue Less</h2>
+      <p>Students can reserve meals quickly. Staff can monitor and update order statuses in real time.</p>
+      <ul>
+        <li>Secure role-based authentication</li>
+        <li>MySQL-backed ordering workflow</li>
+        <li>Student and staff dashboards</li>
+      </ul>
+    </section>
+
+    <section class="auth-card">
+      <div class="tabs">
+        <button type="button" class="tab-btn active" data-auth-tab="login">Login</button>
+        <button type="button" class="tab-btn" data-auth-tab="register">Register</button>
+      </div>
+
+      <p id="auth-message" class="form-message" aria-live="polite"></p>
+
+      <form id="login-form" class="auth-form" novalidate>
+        <label for="login-name">Full Name</label>
+        <input id="login-name" name="full_name" type="text" autocomplete="name" required>
+
+        <label for="login-password">Password</label>
+        <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+
+        <button type="submit">Log In</button>
+      </form>
+
+      <form id="register-form" class="auth-form hidden" novalidate>
+        <div class="register-role-switch" aria-label="Choose role">
+          <button type="button" class="role-switch-btn active" data-register-role-btn="student">Student</button>
+          <button type="button" class="role-switch-btn" data-register-role-btn="staff">Staff</button>
+          <input id="register-role" name="role" type="hidden" value="student">
+        </div>
+
+        <label for="register-name">Full Name</label>
+        <input id="register-name" name="full_name" type="text" autocomplete="name" required>
+
+        <div id="student-register-fields" class="role-fields">
+          <label for="register-lrn">LRN</label>
+          <input id="register-lrn" name="lrn" type="text" placeholder="Enter student LRN" required>
+
+          <label for="register-grade">Grade</label>
+          <input id="register-grade" name="grade" type="text" placeholder="e.g. Grade 10" required>
+
+          <label for="register-section">Section</label>
+          <input id="register-section" name="section" type="text" placeholder="e.g. Rizal" required>
+
+          <label for="register-email">Email</label>
+          <input id="register-email" name="email" type="email" placeholder="Enter student email" autocomplete="email" required>
+        </div>
+
+        <div id="staff-register-fields" class="role-fields hidden">
+          <label for="register-staff-number">Staff ID</label>
+          <input id="register-staff-number" name="staff_number" type="text" placeholder="Enter staff ID">
+        </div>
+
+        <label for="register-password">Password</label>
+        <input id="register-password" name="password" type="password" autocomplete="new-password" minlength="8" required>
+
+        <button type="submit">Create Account</button>
+      </form>
+
+      <div class="demo-note">
+        <p><strong>Seeded demo accounts</strong></p>
+        <p>Student: <code>Juan Dela Cruz</code> / <code>student123</code></p>
+        <p>Staff: <code>Maria Santos</code> / <code>staff123</code></p>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/api.js" defer></script>
+  <script src="assets/auth.js" defer></script>
+</body>
+</html>
+
+
