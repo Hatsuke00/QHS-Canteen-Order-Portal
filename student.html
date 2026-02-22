@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard - Campus Canteen Reservation</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand-block">
+        <img src="pictures/LOGO.jpg" alt="School Logo" class="brand-logo">
+        <div>
+          <p class="brand-eyebrow">Student Portal</p>
+          <h1 class="brand-title">Canteen Reservation Dashboard</h1>
+        </div>
+      </div>
+
+      <div class="user-actions">
+        <p id="student-user" class="user-label"></p>
+        <button id="student-logout-btn" class="secondary-btn" type="button">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell dashboard-grid">
+    <section class="panel menu-panel">
+      <div class="panel-head">
+        <h2>Available Menu</h2>
+        <input id="menu-search" type="search" placeholder="Search menu...">
+      </div>
+      <p id="menu-message" class="form-message" aria-live="polite"></p>
+      <div id="menu-grid" class="menu-grid"></div>
+    </section>
+
+    <aside class="panel cart-panel">
+      <div class="panel-head">
+        <h2>Cart</h2>
+      </div>
+      <p id="cart-message" class="form-message" aria-live="polite"></p>
+      <div id="cart-list" class="cart-list"></div>
+      <div class="cart-footer">
+        <p>Total: <strong id="cart-total">PHP 0.00</strong></p>
+        <button id="checkout-btn" type="button">Checkout</button>
+      </div>
+    </aside>
+  </main>
+
+  <section class="shell panel history-panel">
+    <div class="panel-head">
+      <h2>My Orders</h2>
+      <button id="refresh-orders-btn" class="secondary-btn" type="button">Refresh</button>
+    </div>
+    <div id="student-orders" class="orders-list"></div>
+  </section>
+
+  <script src="assets/api.js" defer></script>
+  <script src="assets/student.js" defer></script>
+</body>
+</html>

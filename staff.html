@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Dashboard - Campus Canteen Reservation</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand-block">
+        <img src="pictures/LOGO.jpg" alt="School Logo" class="brand-logo">
+        <div>
+          <p class="brand-eyebrow">Staff Portal</p>
+          <h1 class="brand-title">Order Monitoring Dashboard</h1>
+        </div>
+      </div>
+
+      <div class="user-actions">
+        <p id="staff-user" class="user-label"></p>
+        <button id="staff-logout-btn" class="secondary-btn" type="button">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell panel orders-panel">
+    <div class="panel-head">
+      <h2>Student Orders</h2>
+      <p id="staff-poll-status" class="muted-text">Updating every 5 seconds</p>
+    </div>
+    <p id="staff-message" class="form-message" aria-live="polite"></p>
+    <div id="staff-orders" class="orders-list"></div>
+  </main>
+
+  <section class="shell panel menu-manage-panel">
+    <div class="panel-head">
+      <h2>Menu Management</h2>
+      <p class="muted-text">Staff-only: update item price and availability</p>
+    </div>
+    <p id="menu-manage-message" class="form-message" aria-live="polite"></p>
+    <div id="menu-manage-list" class="manage-grid"></div>
+  </section>
+
+  <script src="assets/api.js" defer></script>
+  <script src="assets/staff.js" defer></script>
+</body>
+</html>
